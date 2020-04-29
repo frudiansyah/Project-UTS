@@ -41,11 +41,11 @@ public class AsyncInvokeURLTask extends AsyncTask<Void, Void, String> {
     @Override
     public void onPreExecute() {
         if (showdialog)
-            this.dialog = ProgressDialog.show(applicationContext,message,"Silakan Menunggu...",true);
+            this.dialog = ProgressDialog.show(applicationContext,message,"Silakan menunggu...",true);
     }
     @Override
     protected String doInBackground(Void... params) {
-        String result = "Timeout";
+        String result = "timeout";
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(url_server+mNoteItWebUrl);
         try {

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_margin="5dp"
     android:id="@+id/scrollView1"
-    tools:context=".DetailHandphone">
+    tools:context=".FormHandphone">
 
     <LinearLayout
         android:layout_width="match_parent"

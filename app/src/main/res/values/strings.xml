@@ -3,11 +3,11 @@
     <string name="option_menu_search">Search</string>
     <string name="option_menu_new">Add New</string>
     <string name="option_menu_save">Save</string>
-    <string name="option_menu_edit">Edit</string>
-    <string name="option_menu_delete">Delete</string>
+    <string name="action_menu_edit">Edit</string>
+    <string name="action_menu_delete">Delete</string>
     <string name="cad_edit">Edit</string>
     <string name="cad_delete">Delete</string>
     <string name="tittle_activity_add_new">Form Handphone</string>
-    <string name="action_setting">scrolling</string>
-    <string name="tittle_activity_detail_handphone">detail Handphone</string>
+    <string name="action_setting">Scrolling</string>
+    <string name="tittle_activity_detail_handphone">Detail Handphone</string>
 </resources>
