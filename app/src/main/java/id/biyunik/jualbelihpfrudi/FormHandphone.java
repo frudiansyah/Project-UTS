@@ -42,7 +42,7 @@ public class FormHandphone extends AppCompatActivity {
     }
     private void initView() {
         textNama = (EditText) findViewById(R.id.Add_new_nama);
-        textHarga = (EditText) findViewById(R.id.add_new_harga)
+        textHarga = (EditText) findViewById(R.id.add_new_harga);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

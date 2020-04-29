@@ -17,29 +17,29 @@ import id.biyunik.jualbelihpfrudi.model.Handphone;
 
 public class ListAdapterHandphone extends BaseAdapter implements Filterable {
     private Context context;
-    private List<Handphone> list, filterd;
+    private List<Handphone> list, filtered;
     public ListAdapterHandphone(Context context, List<Handphone> list) {
         this.context = context;
         this.list = list;
-        this.filterd = this.list;
+        this.filtered = this.list;
     }
     @Override
     public int getCount() {
-        return filterd.size();
+        return filtered.size();
     }
     @Override
     public Object getItem(int position) {
-        return filterd.get(position);
+        return filtered.get(position);
     }
     @Override
-    public long getItemId(int position) { return position}
+    public long getItemId(int position) { return position; }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(this.context);
             convertView = inflater.inflate(R.layout.list_row, null);
         }
-        Handphone hp = filterd.get(position);
+        Handphone hp = filtered.get(position);
         TextView textNama = (TextView) convertView.findViewById(R.id.text_nama);
         TextView textHarga = (TextView) convertView.findViewById(R.id.text_harga);
         textHarga.setText(hp.getHarga());
@@ -67,7 +67,7 @@ public class ListAdapterHandphone extends BaseAdapter implements Filterable {
         }
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filterd = (List<Handphone>) results.values;
+            filtered = (List<Handphone>) results.values;
             notifyDataSetChanged();
         }
     }

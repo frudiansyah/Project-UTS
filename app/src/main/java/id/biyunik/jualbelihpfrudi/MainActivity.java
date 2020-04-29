@@ -120,10 +120,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             MenuItemCompat.setShowAsAction(searchItem, MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_ALWAYS);
             MenuItemCompat.setActionView(searchItem, searchView = new SearchView(MainActivity.this));
         }
-        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null
-        null);
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         TextView textView = (TextView) searchView.findViewById(id);
-        TextView.setTextColor(Color.WHITE);
+        textView.setTextColor(Color.WHITE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(this);
@@ -170,9 +169,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 if (actionMode != null) {
                     return false;
                 }
-                actionMode = startActionMode(amCallback);
+                actionMode = startSupportActionMode(amCallback);
                 v.setSelected(true);
                 selectedList = (Handphone) adapter.getItem(pos);
+                return true;
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -184,10 +184,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 in.putExtra("nama", selectedList.getNama());
                 in.putExtra("harga", selectedList.getHarga());
                 startActivity(in);
+                return false;
             }
-        });
-    }
-
+            });
+        }
     private void loadDataHP() {
         try {
             ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(0);
@@ -220,10 +220,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 @Override
                 public void onPostExecute(String result) {
                     Log.d("TAG", "Login : " + result);
-                    if (result.equals("timeout")) ||
-                    result.trim().equalsIgnoreCase("Tidak dapat terkoneksi ke database") {
+                    if (result.equals("timeout") || result.trim().equalsIgnoreCase("Tidak dapat terkoneksi ke database")) {
                         Toast.makeText(getBaseContext(), "Tidak dapat terkoneksi dengan server", Toast.LENGTH_SHORT).show();
-                    } else{
+                    } else {
                         processResponse(result);
                         populateListView();
                     }

@@ -23,7 +23,6 @@ public class DetailHandphone extends AppCompatActivity {
     public static final String urlDelete = "delete_phone.php";
     private EditText textNama, textHarga;
     private Handphone handphone;
-    @Override
     protected void onCrete(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_handphone);
