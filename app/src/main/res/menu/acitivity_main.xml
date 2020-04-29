@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom|collapseActionView" />
 
     <item
-        android:id="@+id/tion_menu_new"
+        android:id="@+id/option_menu_new"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/option_menu_new"
         app:showAsAction="ifRoom" />
