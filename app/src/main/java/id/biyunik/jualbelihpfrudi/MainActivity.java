@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             task.showdialog = true;
             task.message = "Load data HP, harap tunggu...";
             task.applicationContext = MainActivity.this;
-            task.mNoteItWebUrl = "?select_all.php";
+            task.mNoteItWebUrl = "/select_all.php";
             task.execute();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,7 @@
 package id.biyunik.jualbelihpfrudi;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,7 +14,9 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Objects;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import id.biyunik.jualbelihpfrudi.model.Handphone;
 import id.biyunik.jualbelihpfrudi.server.AsyncInvokeURLTask;
@@ -22,12 +25,13 @@ public class FormHandphone extends AppCompatActivity {
     private EditText textNama, textHarga;
     private Handphone handphone;
     public static final String urlSubmit = "submit_phone.php";
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_handphone);
         initView();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         handphone = new Handphone();
         if (getIntent().hasExtra("id")) {
             String id = getIntent().getStringExtra("id");
