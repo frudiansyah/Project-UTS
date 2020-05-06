@@ -9,6 +9,7 @@ public class Handphone {
         super();
     }
     public Handphone(Integer id, String nama, String harga) {
+        super();
         this.id = id;
         this.nama = nama;
         this.harga = harga;

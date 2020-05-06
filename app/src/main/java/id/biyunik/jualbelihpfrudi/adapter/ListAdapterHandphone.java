@@ -1,5 +1,6 @@
 package id.biyunik.jualbelihpfrudi.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class ListAdapterHandphone extends BaseAdapter implements Filterable {
     }
     @Override
     public long getItemId(int position) { return position; }
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -40,15 +42,15 @@ public class ListAdapterHandphone extends BaseAdapter implements Filterable {
             convertView = inflater.inflate(R.layout.list_row, null);
         }
         Handphone hp = filtered.get(position);
-        TextView textNama = (TextView) convertView.findViewById(R.id.text_nama);
-        TextView textHarga = (TextView) convertView.findViewById(R.id.text_harga);
+        TextView textNama = convertView.findViewById(R.id.text_nama);
+        textNama.setText(hp.getNama());
+        TextView textHarga = convertView.findViewById(R.id.text_harga);
         textHarga.setText(hp.getHarga());
         return convertView;
     }
     @Override
     public Filter getFilter() {
-        HandphoneFilter filter = new HandphoneFilter();
-        return filter;
+        return new HandphoneFilter();
     }
     private class HandphoneFilter extends Filter {
         @Override

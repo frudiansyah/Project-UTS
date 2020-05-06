@@ -20,9 +20,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class AsyncInvokeURLTask extends AsyncTask<Void, Void, String> {
-    public String mNoteItWebUrl = "www.smartneasy.com";
+    public String mNoteItWebUrl = "index.html";
     private ArrayList<NameValuePair> mParams;
-    private OnPostExecuteListener onPostExecuteListener = null;
+    private OnPostExecuteListener mPostExecuteListener = null;
     private ProgressDialog dialog;
     public boolean showdialog = false;
     public String message = "Proses Data";
@@ -34,8 +34,8 @@ public class AsyncInvokeURLTask extends AsyncTask<Void, Void, String> {
     public AsyncInvokeURLTask(
             ArrayList<NameValuePair> nameValuePairs, OnPostExecuteListener postExecuteListener) throws Exception {
         mParams = nameValuePairs;
-        onPostExecuteListener = postExecuteListener;
-        if (onPostExecuteListener == null)
+        mPostExecuteListener = postExecuteListener;
+        if (mPostExecuteListener == null)
             throw new Exception("Param cannot be null");
     }
     @Override
@@ -47,7 +47,7 @@ public class AsyncInvokeURLTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         String result = "timeout";
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost(url_server+mNoteItWebUrl);
+        HttpPost httppost = new HttpPost(url_server + mNoteItWebUrl);
         try {
             httppost.setEntity(new UrlEncodedFormEntity(mParams));
             HttpResponse response = httpclient.execute(httppost);
@@ -67,10 +67,10 @@ public class AsyncInvokeURLTask extends AsyncTask<Void, Void, String> {
     }
     @Override
     public void onPostExecute(String result) {
-        if (onPostExecuteListener != null) {
+        if (mPostExecuteListener != null) {
             try {
                 if (showdialog) this.dialog.dismiss();
-                onPostExecuteListener.onPostExecute(result);
+                mPostExecuteListener.onPostExecute(result);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,7 +82,7 @@ public class AsyncInvokeURLTask extends AsyncTask<Void, Void, String> {
         String line = null;
         try {
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
         }catch (IOException e) {
             e.printStackTrace();

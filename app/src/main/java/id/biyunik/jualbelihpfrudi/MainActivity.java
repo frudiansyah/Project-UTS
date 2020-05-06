@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -24,7 +25,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
@@ -35,11 +38,11 @@ import id.biyunik.jualbelihpfrudi.model.Handphone;
 import id.biyunik.jualbelihpfrudi.server.AsyncInvokeURLTask;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    private static final String TAG = "MainActivity";
-    private ListView listView;
-    private ActionMode actionMode;
-    private ActionMode.Callback amCallback;
-    private List<Handphone> listhp;
+        private static final String TAG = "MainActivity";
+        private ListView listView;
+        private ActionMode actionMode;
+        private ActionMode.Callback amCallback;
+        private List<Handphone> listhp;
     private ListAdapterHandphone adapter;
     private Handphone selectedList;
 
@@ -64,13 +67,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 getMenuInflater().inflate(R.menu.activity_main_action, menu);
                 return true;
             }
-
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_menu_edit:
-                        showUpdateForm();
-                        break;
+                if (item.getItemId() == R.id.action_menu_edit) {
+                    showUpdateForm();
                 }
                 mode.finish();
                 return false;
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                listhp.remove(listhp.indexOf(selectedList));
+                boolean remove = listhp.remove(selectedList);
                 Toast.makeText(getApplicationContext(), "deleted", Toast.LENGTH_SHORT).show();
             }
         });
@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         TextView textView = (TextView) searchView.findViewById(id);
         textView.setTextColor(Color.WHITE);
+        assert searchManager != null;
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(this);
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void processResponse(String response) {
         try {
             JSONObject jsonObj = new JSONObject(response);
@@ -156,10 +158,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 this.listhp.add(handphone);
             }
         } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Log.d(TAG, Objects.requireNonNull(e.getMessage()));
+            }
         }
     }
-
     private void populateListView() {
         adapter = new ListAdapterHandphone(getApplicationContext(), this.listhp);
         listView.setAdapter(adapter);
